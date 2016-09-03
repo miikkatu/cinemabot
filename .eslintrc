@@ -1,0 +1,38 @@
+{
+  "ecmaVersion": 6,
+  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-native"
+  ],
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true,
+  },
+  "rules": {
+    "react/jsx-filename-extension": 1,
+    "react/prefer-stateless-function": 1,
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2,
+    "react-native/no-inline-styles": 2,
+    "react-native/no-color-literals": 1,
+  },
+  "react/sort-comp": ["warn", {
+    "order": [
+      "static-methods",
+      "props",
+      "state",
+      "lifecycle",
+      "everything-else",
+      "render",
+    ]
+  }]
+}
