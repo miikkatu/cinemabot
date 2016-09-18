@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   areaPicker: {
-    fontSize: 20,
-    margin: 10,
+    fontSize: 16,
   },
 });
 

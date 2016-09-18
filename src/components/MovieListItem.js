@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   movieListItem: {
+    color: 'blue',
     fontSize: 20,
     margin: 10,
   },
@@ -10,14 +12,18 @@ const styles = StyleSheet.create({
 
 export default class MovieListItem extends Component {
   render() {
+    const goToMovie = () => Actions.movie({ movie: this.props.movie });
     return (
       <View>
-        <Text style={styles.movieListItem}>{this.props.title}</Text>
+        <Text
+          style={styles.movieListItem}
+          onPress={goToMovie}
+        >{this.props.movie.title}</Text>
       </View>
     );
   }
 }
 
 MovieListItem.propTypes = {
-  title: PropTypes.string.isRequired,
+  movie: PropTypes.object.isRequired,
 };

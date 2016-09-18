@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   datePicker: {
-    fontSize: 20,
-    margin: 10,
+    fontSize: 16,
   },
 });
 

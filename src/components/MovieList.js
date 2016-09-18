@@ -4,20 +4,18 @@ import { StyleSheet, View } from 'react-native';
 import MovieListItem from './MovieListItem';
 
 const styles = StyleSheet.create({
-  movieList: {
-    margin: 10,
+  container: {
   },
 });
 
 export default class MovieList extends Component {
   render() {
     return (
-      <View style={styles.movieList}>
+      <View style={styles.container}>
         {this.props.movies.map((movie, i) =>
-          <MovieListItem
-            key={i}
-            title={movie.title}
-          />)}
+          <View key={i}>
+            <MovieListItem movie={movie} />
+          </View>)}
       </View>
     );
   }
