@@ -18,12 +18,14 @@
     "node": true,
   },
   "rules": {
-    "react/jsx-filename-extension": 1,
-    "react/prefer-stateless-function": 1,
+    "class-methods-use-this": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prefer-stateless-function": 0,
     "react-native/no-unused-styles": 2,
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
-    "react-native/no-color-literals": 1,
+    "react-native/no-color-literals": 0,
   },
   "react/sort-comp": ["warn", {
     "order": [
