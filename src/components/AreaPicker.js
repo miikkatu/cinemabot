@@ -11,12 +11,12 @@ export default class AreaPicker extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.areaPicker}>Area Picker: {this.props.persistedArea}</Text>
+        <Text style={styles.areaPicker}>Area Picker: {this.props.persistedTheater}</Text>
       </View>
     );
   }
 }
 
 AreaPicker.propTypes = {
-  persistedArea: PropTypes.string,
+  persistedTheater: PropTypes.string,
 };
