@@ -1,22 +1,36 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Picker, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   areaPicker: {
-    fontSize: 16,
+  },
+  picker: {
   },
 });
 
 export default class AreaPicker extends Component {
+  state = {
+    persistedTheaterID: '1019',
+  };
   render() {
     return (
-      <View>
-        <Text style={styles.areaPicker}>Area Picker: {this.props.persistedTheater}</Text>
+      <View style={styles.areaPicker}>
+        <Picker
+          style={styles.picker}
+          selectedValue={(this.props && this.props.persistedTheaterID) || '1019'}
+          onValueChange={this.props.onValueChange}
+        >
+          {this.props.theatres.map((theatre, i) =>
+            <Picker.Item key={i} label={theatre.Name} value={theatre.ID} />
+          )}
+        </Picker>
       </View>
     );
   }
 }
 
 AreaPicker.propTypes = {
-  persistedTheater: PropTypes.string,
+  onValueChange: PropTypes.func,
+  persistedTheaterID: PropTypes.string,
+  theatres: PropTypes.array,
 };

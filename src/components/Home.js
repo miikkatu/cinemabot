@@ -37,16 +37,11 @@ class Home extends Component {
         year: '1982',
       },
     ],
+    persistedTheaterID: '1021',
   };
 
   componentDidMount() {
     this.fetchTheatres();
-  }
-
-  clearSelections = () => {
-    this.setState({
-      theatreAreas: [],
-    });
   }
 
   fetchTheatres = () => {
@@ -65,13 +60,20 @@ class Home extends Component {
     request.send();
   }
 
+  handleAreaChange = (id) => {
+    this.setState({ persistedTheaterID: id });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Cinemabot</Text>
-        <AreaPicker persistedTheater="Tampere" />
+        <AreaPicker
+          onValueChange={this.handleAreaChange}
+          persistedTheaterID={this.state.persistedTheaterID}
+          theatres={this.state.theatres}
+        />
         <DatePicker />
-        {/* <Text onPress={this.clearSelections}>Clear</Text> */}
         <MovieList movies={this.state.movies} />
       </View>
     );
