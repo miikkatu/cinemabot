@@ -1,22 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import MovieListItem from './MovieListItem';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'lightgray',
   },
 });
 
 export default class MovieList extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {this.props.movies.map((movie, i) =>
           <View key={i}>
             <MovieListItem movie={movie} />
           </View>)}
-      </View>
+      </ScrollView>
     );
   }
 }

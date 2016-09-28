@@ -5,6 +5,8 @@ import AreaPicker from '../components/AreaPicker';
 import DatePicker from '../components/DatePicker';
 import MovieList from '../components/MovieList';
 
+import eventConverter from '../converters/event';
+import scheduleConverter from '../converters/schedule';
 import theatreAreaConverter from '../converters/theatreArea';
 
 const styles = StyleSheet.create({
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    height: 200,
     padding: 10,
     paddingTop: 20,
   },
@@ -40,6 +42,7 @@ class Home extends Component {
         year: '1982',
       },
     ],
+    schedule: [],
     selectedAreaID: '1029',
     selectedAreaName: 'Valitse alue/teatteri',
     showAreaPicker: false,
@@ -47,6 +50,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchAreas();
+    this.fetchMovies();
   }
 
   fetchAreas = () => {
@@ -65,12 +69,48 @@ class Home extends Component {
     request.send();
   }
 
+  fetchMovies = (areaID) => {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+      if (request.readyState !== 4) {
+        return;
+      }
+      if (request.status === 200) {
+        this.setState({
+          movies: eventConverter(request.responseText),
+        });
+      }
+    };
+    const url = `http://www.finnkino.fi/xml/Events/?area=${areaID}`;
+    request.open('GET', url);
+    request.send();
+  }
+
+  fetchSchedule = (areaID, movieID) => {
+    const request = new XMLHttpRequest();
+    request.TheatreID = areaID;
+    request.onreadystatechange = () => {
+      if (request.readyState !== 4) {
+        return;
+      }
+      if (request.status === 200) {
+        this.setState({
+          schedule: scheduleConverter(request.responseText),
+        });
+      }
+    };
+    const url = `http://www.finnkino.fi/xml/Schedule/?area=${areaID}&${movieID}`;
+    request.open('GET', url);
+    request.send();
+  }
+
   handleAreaChange = (id) => {
     this.setState({
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
       showAreaPicker: false,
     });
+    this.fetchMovies(this.state.selectedAreaID);
   }
 
   toggleAreaPicker = () => {

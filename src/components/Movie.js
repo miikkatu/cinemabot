@@ -22,8 +22,8 @@ export default class Movie extends Component {
     const goToHome = () => Actions.pop();
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.movie.title}</Text>
-        <Text style={styles.year}>{this.props.movie.year}</Text>
+        <Text style={styles.title}>{this.props.movie.Title}</Text>
+        <Text style={styles.year}>{this.props.movie.ProductionYear}</Text>
         <Text style={styles.link} onPress={goToHome}>Go back</Text>
       </View>
     );

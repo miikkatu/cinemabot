@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   movieListItem: {
+    backgroundColor: 'white',
     color: 'blue',
     fontSize: 20,
     margin: 10,
@@ -18,7 +19,7 @@ export default class MovieListItem extends Component {
         <Text
           style={styles.movieListItem}
           onPress={goToMovie}
-        >{this.props.movie.title}</Text>
+        >{this.props.movie.Title}</Text>
       </View>
     );
   }
