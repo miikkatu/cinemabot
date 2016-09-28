@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 class Home extends Component {
   state = {
-    theatres: [],
+    areas: [],
     movies: [
       {
         title: 'Alien',
@@ -40,16 +40,16 @@ class Home extends Component {
         year: '1982',
       },
     ],
-    persistedTheaterID: '1029',
-    persistedTheaterName: 'Valitse alue/teatteri',
+    selectedAreaID: '1029',
+    selectedAreaName: 'Valitse alue/teatteri',
     showAreaPicker: false,
   };
 
   componentDidMount() {
-    this.fetchTheatres();
+    this.fetchAreas();
   }
 
-  fetchTheatres = () => {
+  fetchAreas = () => {
     const request = new XMLHttpRequest();
     request.onreadystatechange = () => {
       if (request.readyState !== 4) {
@@ -57,7 +57,7 @@ class Home extends Component {
       }
       if (request.status === 200) {
         this.setState({
-          theatres: theatreAreaConverter(request.responseText),
+          areas: theatreAreaConverter(request.responseText),
         });
       }
     };
@@ -67,8 +67,8 @@ class Home extends Component {
 
   handleAreaChange = (id) => {
     this.setState({
-      persistedTheaterID: id,
-      persistedTheaterName: this.state.theatres.find(x => x.ID === id).Name,
+      selectedAreaID: id,
+      selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
       showAreaPicker: false,
     });
   }
@@ -84,13 +84,13 @@ class Home extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>Cinemabot</Text>
         <TouchableHighlight onPress={this.toggleAreaPicker}>
-          <Text style={styles.areaTitle}>{this.state.persistedTheaterName}</Text>
+          <Text style={styles.areaTitle}>{this.state.selectedAreaName}</Text>
         </TouchableHighlight>
         {this.state.showAreaPicker ?
           <AreaPicker
+            areas={this.state.areas}
             onValueChange={this.handleAreaChange}
-            persistedTheaterID={this.state.persistedTheaterID}
-            theatres={this.state.theatres}
+            selectedAreaID={this.state.selectedAreaID}
           /> : <View />}
         <DatePicker />
         <MovieList movies={this.state.movies} />

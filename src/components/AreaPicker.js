@@ -10,18 +10,18 @@ const styles = StyleSheet.create({
 
 export default class AreaPicker extends Component {
   state = {
-    persistedTheaterID: '1019',
+    selectedAreaID: '1019',
   };
   render() {
     return (
       <View style={styles.areaPicker}>
         <Picker
           style={styles.picker}
-          selectedValue={(this.props && this.props.persistedTheaterID) || '1019'}
+          selectedValue={(this.props && this.props.selectedAreaID) || '1019'}
           onValueChange={this.props.onValueChange}
         >
-          {this.props.theatres.map((theatre, i) =>
-            <Picker.Item key={i} label={theatre.Name} value={theatre.ID} />
+          {this.props.areas.map((area, i) =>
+            <Picker.Item key={i} label={area.Name} value={area.ID} />
           )}
         </Picker>
       </View>
@@ -30,7 +30,7 @@ export default class AreaPicker extends Component {
 }
 
 AreaPicker.propTypes = {
+  areas: PropTypes.array,
   onValueChange: PropTypes.func,
-  persistedTheaterID: PropTypes.string,
-  theatres: PropTypes.array,
+  selectedAreaID: PropTypes.string,
 };
