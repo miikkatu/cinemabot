@@ -45,8 +45,7 @@ export default class Movie extends Component {
         return ` ${director.FirstName} ${director.LastName}`;
       });
       return directors.toString().slice(1);
-    }
-    else {
+    } else {
       return ` ${this.props.movie.Directors.Director.FirstName} ${this.props.movie.Directors.Director.LastName}`;
     }
   }
@@ -62,6 +61,7 @@ export default class Movie extends Component {
   }
 
   render() {
+    console.log(this.props.movie);
     const goToHome = () => Actions.pop();
     return (
       <ScrollView style={styles.container}>
@@ -92,13 +92,14 @@ export default class Movie extends Component {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.detail}>
-            Ohjaus: <Text>{this.getDirectorList()}</Text>
-          </Text>
-
-          <Text style={styles.detail}>
-            Pääosissa: {this.getActorList()}
-          </Text>
+          {this.props.movie.Directors.Director ?
+            <Text style={styles.detail}>
+              Ohjaus: <Text>{this.getDirectorList()}</Text>
+            </Text> : null}
+          {this.props.movie.Cast ?
+            <Text style={styles.detail}>
+              Pääosissa: {this.getActorList()}
+            </Text> : null}
         </View>
 
         <View style={styles.section}>
