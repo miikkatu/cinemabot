@@ -108,9 +108,14 @@ class Home extends Component {
     this.setState({
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
-      showAreaPicker: false,
     });
     this.fetchMovies(this.state.selectedAreaID);
+  }
+
+  handlePickArea = () => {
+    this.setState({
+      showAreaPicker: false,
+    });
   }
 
   toggleAreaPicker = () => {
@@ -129,6 +134,7 @@ class Home extends Component {
         {this.state.showAreaPicker ?
           <AreaPicker
             areas={this.state.areas}
+            onPickArea={this.handlePickArea}
             onValueChange={this.handleAreaChange}
             selectedAreaID={this.state.selectedAreaID}
           /> : <View />}
