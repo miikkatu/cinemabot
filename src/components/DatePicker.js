@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { DatePickerIOS, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const styles = StyleSheet.create({
   datePicker: {
@@ -12,7 +12,21 @@ export default class DatePicker extends Component {
     return (
       <View>
         <Text style={styles.datePicker}>Date Picker</Text>
+        <DatePickerIOS
+          date={this.props.selectedDate}
+          mode="date"
+          onDateChange={this.props.onValueChange}
+        />
+        <TouchableHighlight onPress={this.props.onPickDate}>
+          <Text style={styles.pickButton}>Valitse</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
+
+DatePicker.propTypes = {
+  onPickDate: PropTypes.func,
+  onValueChange: PropTypes.func,
+  selectedDate: PropTypes.object,
+};

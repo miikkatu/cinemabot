@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import moment from 'moment';
 
 import AreaPicker from '../components/AreaPicker';
 import DatePicker from '../components/DatePicker';
@@ -9,8 +10,10 @@ import eventConverter from '../converters/event';
 import scheduleConverter from '../converters/schedule';
 import theatreAreaConverter from '../converters/theatreArea';
 
+require('moment/locale/fi');
+
 const styles = StyleSheet.create({
-  areaTitle: {
+  pickerTitle: {
     fontSize: 18,
   },
   container: {
@@ -27,30 +30,21 @@ const styles = StyleSheet.create({
 
 class Home extends Component {
   state = {
+    areaDates: [],
     areas: [],
-    movies: [
-      {
-        title: 'Alien',
-        year: '1979',
-      },
-      {
-        title: 'Blade Runner',
-        year: '1982',
-      },
-      {
-        title: 'Escape from New York',
-        year: '1982',
-      },
-    ],
+    movies: [],
     schedule: [],
     selectedAreaID: '1029',
     selectedAreaName: 'Valitse alue/teatteri',
+    selectedDate: new Date(),
     showAreaPicker: false,
+    showDatePicker: false,
   };
 
   componentDidMount() {
     this.fetchAreas();
-    this.fetchMovies();
+    this.fetchMovies(this.state.selectedAreaID);
+    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
   }
 
   fetchAreas = () => {
@@ -81,12 +75,12 @@ class Home extends Component {
         });
       }
     };
-    const url = `http://www.finnkino.fi/xml/Events/?area=${areaID}`;
+    const url = `http://www.finnkino.fi/xml/Events?area=${parseInt(areaID, 10)}`;
     request.open('GET', url);
     request.send();
   }
 
-  fetchSchedule = (areaID, movieID) => {
+  fetchSchedule = (areaID, date) => {
     const request = new XMLHttpRequest();
     request.TheatreID = areaID;
     request.onreadystatechange = () => {
@@ -99,7 +93,7 @@ class Home extends Component {
         });
       }
     };
-    const url = `http://www.finnkino.fi/xml/Schedule/?area=${areaID}&${movieID}`;
+    const url = `http://www.finnkino.fi/xml/Schedule?area=${parseInt(areaID, 10)}&${moment(date).format('DD.MM.YYYY')}`;
     request.open('GET', url);
     request.send();
   }
@@ -110,6 +104,14 @@ class Home extends Component {
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
     });
     this.fetchMovies(this.state.selectedAreaID);
+    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+  }
+
+  handleDateChange = (selectedDate) => {
+    this.setState({
+      selectedDate,
+    });
+    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
   }
 
   handlePickArea = () => {
@@ -118,9 +120,21 @@ class Home extends Component {
     });
   }
 
+  handlePickDate = () => {
+    this.setState({
+      showDatePicker: false,
+    });
+  }
+
   toggleAreaPicker = () => {
     this.setState({
-      showAreaPicker: !this.state.showCancel,
+      showAreaPicker: !this.state.showAreaPicker,
+    });
+  }
+
+  toggleDatePicker = () => {
+    this.setState({
+      showDatePicker: !this.state.showDatePicker,
     });
   }
 
@@ -129,7 +143,7 @@ class Home extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>Cinemabot</Text>
         <TouchableHighlight onPress={this.toggleAreaPicker}>
-          <Text style={styles.areaTitle}>{this.state.selectedAreaName}</Text>
+          <Text style={styles.pickerTitle}>Alue: {this.state.selectedAreaName}</Text>
         </TouchableHighlight>
         {this.state.showAreaPicker ?
           <AreaPicker
@@ -138,8 +152,17 @@ class Home extends Component {
             onValueChange={this.handleAreaChange}
             selectedAreaID={this.state.selectedAreaID}
           /> : <View />}
-        <DatePicker />
-        <MovieList movies={this.state.movies} />
+        <TouchableHighlight onPress={this.toggleDatePicker}>
+          <Text style={styles.pickerTitle}>Päivä: {moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
+        </TouchableHighlight>
+        {this.state.showDatePicker ?
+          <DatePicker
+            areaDates={this.state.areaDates}
+            onValueChange={this.handleDateChange}
+            onPickDate={this.handlePickDate}
+            selectedDate={this.state.selectedDate}
+          /> : <View />}
+        <MovieList movies={this.state.schedule} />
       </View>
     );
   }
