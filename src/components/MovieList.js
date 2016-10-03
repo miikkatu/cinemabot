@@ -10,12 +10,16 @@ const styles = StyleSheet.create({
 });
 
 export default class MovieList extends Component {
+  getEvent = (id) => {
+    return this.props.events.find(x => x.ID === id);
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
-        {this.props.movies.map((movie, i) =>
+        {this.props.schedule.map((show, i) =>
           <View key={i}>
-            <MovieListItem movie={movie} />
+            <MovieListItem movie={this.getEvent(show.EventID)} />
           </View>)}
       </ScrollView>
     );
@@ -23,5 +27,6 @@ export default class MovieList extends Component {
 }
 
 MovieList.propTypes = {
-  movies: PropTypes.array,
+  events: PropTypes.array,
+  schedule: PropTypes.array,
 };

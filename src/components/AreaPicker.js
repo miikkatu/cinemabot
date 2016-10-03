@@ -17,9 +17,6 @@ export default class AreaPicker extends Component {
     selectedAreaID: '1019',
   };
 
-  toggleArea = () => {
-  }
-
   render() {
     return (
       <View style={styles.areaPicker}>

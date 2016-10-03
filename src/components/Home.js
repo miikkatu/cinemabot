@@ -32,7 +32,7 @@ class Home extends Component {
   state = {
     areaDates: [],
     areas: [],
-    movies: [],
+    events: [],
     schedule: [],
     selectedAreaID: '1029',
     selectedAreaName: 'Valitse alue/teatteri',
@@ -43,8 +43,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchAreas();
-    this.fetchMovies(this.state.selectedAreaID);
-    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+    this.fetchEvents();
   }
 
   fetchAreas = () => {
@@ -63,7 +62,7 @@ class Home extends Component {
     request.send();
   }
 
-  fetchMovies = (areaID) => {
+  fetchEvents = () => {
     const request = new XMLHttpRequest();
     request.onreadystatechange = () => {
       if (request.readyState !== 4) {
@@ -71,29 +70,32 @@ class Home extends Component {
       }
       if (request.status === 200) {
         this.setState({
-          movies: eventConverter(request.responseText),
+          events: eventConverter(request.responseText),
         });
       }
     };
-    const url = `http://www.finnkino.fi/xml/Events?area=${parseInt(areaID, 10)}`;
+    const url = 'http://www.finnkino.fi/xml/Events/';
     request.open('GET', url);
     request.send();
   }
 
+  isUpcoming = (value) => {
+    return moment(value.dttmShowStart).isAfter(new Date());
+  }
+
   fetchSchedule = (areaID, date) => {
     const request = new XMLHttpRequest();
-    request.TheatreID = areaID;
     request.onreadystatechange = () => {
       if (request.readyState !== 4) {
         return;
       }
       if (request.status === 200) {
         this.setState({
-          schedule: scheduleConverter(request.responseText),
+          schedule: scheduleConverter(request.responseText).filter(this.isUpcoming),
         });
       }
     };
-    const url = `http://www.finnkino.fi/xml/Schedule?area=${parseInt(areaID, 10)}&${moment(date).format('DD.MM.YYYY')}`;
+    const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&${moment(date).format('DD.MM.YYYY')}`;
     request.open('GET', url);
     request.send();
   }
@@ -103,15 +105,14 @@ class Home extends Component {
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
     });
-    this.fetchMovies(this.state.selectedAreaID);
-    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+    this.fetchSchedule(id, this.state.selectedDate);
   }
 
   handleDateChange = (selectedDate) => {
     this.setState({
       selectedDate,
     });
-    this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+    this.fetchSchedule(this.state.selectedAreaID, selectedDate);
   }
 
   handlePickArea = () => {
@@ -162,7 +163,7 @@ class Home extends Component {
             onPickDate={this.handlePickDate}
             selectedDate={this.state.selectedDate}
           /> : <View />}
-        <MovieList movies={this.state.schedule} />
+        <MovieList events={this.state.events} schedule={this.state.schedule} />
       </View>
     );
   }
