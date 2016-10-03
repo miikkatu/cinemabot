@@ -32,7 +32,7 @@ class Home extends Component {
   state = {
     areaDates: [],
     areas: [],
-    events: [],
+    movies: [],
     schedule: [],
     selectedAreaID: '1029',
     selectedAreaName: 'Valitse alue/teatteri',
@@ -43,7 +43,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchAreas();
-    this.fetchEvents();
+    this.fetchMovies();
   }
 
   fetchAreas = () => {
@@ -62,7 +62,7 @@ class Home extends Component {
     request.send();
   }
 
-  fetchEvents = () => {
+  fetchMovies = () => {
     const request = new XMLHttpRequest();
     request.onreadystatechange = () => {
       if (request.readyState !== 4) {
@@ -70,7 +70,7 @@ class Home extends Component {
       }
       if (request.status === 200) {
         this.setState({
-          events: eventConverter(request.responseText),
+          movies: eventConverter(request.responseText),
         });
       }
     };
@@ -95,7 +95,7 @@ class Home extends Component {
         });
       }
     };
-    const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&${moment(date).format('DD.MM.YYYY')}`;
+    const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&dt=${moment(date).format('DD.MM.YYYY')}`;
     request.open('GET', url);
     request.send();
   }
@@ -113,18 +113,6 @@ class Home extends Component {
       selectedDate,
     });
     this.fetchSchedule(this.state.selectedAreaID, selectedDate);
-  }
-
-  handlePickArea = () => {
-    this.setState({
-      showAreaPicker: false,
-    });
-  }
-
-  handlePickDate = () => {
-    this.setState({
-      showDatePicker: false,
-    });
   }
 
   toggleAreaPicker = () => {
@@ -149,7 +137,6 @@ class Home extends Component {
         {this.state.showAreaPicker ?
           <AreaPicker
             areas={this.state.areas}
-            onPickArea={this.handlePickArea}
             onValueChange={this.handleAreaChange}
             selectedAreaID={this.state.selectedAreaID}
           /> : <View />}
@@ -159,11 +146,10 @@ class Home extends Component {
         {this.state.showDatePicker ?
           <DatePicker
             areaDates={this.state.areaDates}
-            onValueChange={this.handleDateChange}
-            onPickDate={this.handlePickDate}
+            onDateChange={this.handleDateChange}
             selectedDate={this.state.selectedDate}
           /> : <View />}
-        <MovieList events={this.state.events} schedule={this.state.schedule} />
+        <MovieList movies={this.state.movies} schedule={this.state.schedule} />
       </View>
     );
   }

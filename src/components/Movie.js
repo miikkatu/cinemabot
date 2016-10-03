@@ -61,7 +61,6 @@ export default class Movie extends Component {
   }
 
   render() {
-    console.log(this.props.movie);
     const goToHome = () => Actions.pop();
     return (
       <ScrollView style={styles.container}>
@@ -79,6 +78,10 @@ export default class Movie extends Component {
           <Text style={styles.originalTitle}>
             {this.props.movie.OriginalTitle} ({this.props.movie.ProductionYear})
           </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.detailBold}>{moment(this.props.show.dttmShowStart).format('HH:mm')} {this.props.show.Theatre} ({this.props.show.TheatreAuditorium})</Text>
         </View>
 
         <View style={styles.section}>
@@ -131,4 +134,5 @@ export default class Movie extends Component {
 
 Movie.propTypes = {
   movie: PropTypes.object.isRequired,
+  show: PropTypes.object.isRequired,
 };
