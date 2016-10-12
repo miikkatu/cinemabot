@@ -9,8 +9,8 @@ export default class App extends Component {
     return (
       <Router>
         <Scene key="root">
-          <Scene key="home" component={Home} hideNavBar initial />
-          <Scene key="movie" component={Movie} />
+          <Scene key="home" component={Home} title="Cinemabot" initial />
+          <Scene key="movie" component={Movie} title="Cinemabot" />
         </Scene>
       </Router>
     );

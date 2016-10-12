@@ -18,13 +18,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'column',
     height: 200,
     padding: 10,
-    paddingTop: 20,
-  },
-  title: {
-    color: 'orange',
-    fontSize: 20,
+    paddingTop: 70,
   },
 });
 
@@ -137,7 +134,6 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Cinemabot</Text>
         <TouchableHighlight onPress={this.toggleAreaPicker}>
           <Text style={styles.pickerTitle}>Alue: {this.state.selectedAreaName}</Text>
         </TouchableHighlight>

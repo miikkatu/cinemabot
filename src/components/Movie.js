@@ -8,6 +8,7 @@ require('moment/locale/fi');
 const styles = StyleSheet.create({
   container: {
     margin: 20,
+    paddingTop: 70,
   },
   detail: {
     fontSize: 14,
@@ -15,9 +16,6 @@ const styles = StyleSheet.create({
   detailBold: {
     fontSize: 14,
     fontWeight: 'bold',
-  },
-  link: {
-    color: 'blue',
   },
   originalTitle: {
     fontSize: 14,
@@ -125,8 +123,6 @@ export default class Movie extends Component {
             {this.props.movie.Synopsis}
           </Text>
         </View>
-
-        <Text style={styles.link} onPress={goToHome}>Takaisin</Text>
       </ScrollView>
     );
   }
