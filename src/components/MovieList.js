@@ -17,10 +17,11 @@ export default class MovieList extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        {this.props.schedule.map((show, i) =>
-          <View key={i}>
-            <MovieListItem movie={this.getMovie(show.EventID)} show={show} />
-          </View>)}
+        {this.props.schedule !== undefined ?
+          this.props.schedule.map((show, i) =>
+            <View key={i}>
+              <MovieListItem movie={this.getMovie(show.EventID)} show={show} />
+            </View>) : <View />}
       </ScrollView>
     );
   }

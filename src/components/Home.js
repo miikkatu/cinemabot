@@ -80,7 +80,7 @@ class Home extends Component {
   }
 
   isUpcoming = (value) => {
-    return moment(value.dttmShowStart).isAfter(new Date());
+    return moment(value.dttmShowStart).isAfter(this.state.selectedDate);
   }
 
   fetchSchedule = (areaID, date) => {
@@ -90,9 +90,16 @@ class Home extends Component {
         return;
       }
       if (request.status === 200) {
-        this.setState({
-          schedule: scheduleConverter(request.responseText).filter(this.isUpcoming),
-        });
+        const requestResult = scheduleConverter(request.responseText);
+        if (requestResult !== undefined && requestResult.length > 0) {
+          this.setState({
+            schedule: requestResult.filter(this.isUpcoming),
+          });
+        } else {
+          this.setState({
+            schedule: [],
+          });
+        }
       }
     };
     const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&dt=${moment(date).format('DD.MM.YYYY')}`;

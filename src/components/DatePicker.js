@@ -13,7 +13,7 @@ export default class DatePicker extends Component {
       <View>
         <DatePickerIOS
           date={this.props.selectedDate}
-          mode="date"
+          mode="datetime"
           onDateChange={this.props.onDateChange}
         />
       </View>
