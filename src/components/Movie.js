@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
@@ -8,7 +14,7 @@ require('moment/locale/fi');
 const styles = StyleSheet.create({
   container: {
     margin: 20,
-    paddingTop: 70,
+    paddingTop: 65,
   },
   detail: {
     fontSize: 14,
@@ -24,8 +30,30 @@ const styles = StyleSheet.create({
   section: {
     paddingBottom: 10,
   },
+  sectionTitle: {
+    flex: 1,
+    paddingBottom: 10,
+    paddingLeft: 10,
+  },
+  thumbnail: {
+    height: 200,
+    width: 296,
+  },
+  thumbnailView: {
+    paddingBottom: 10,
+  },
   title: {
     fontSize: 20,
+  },
+  titleImage: {
+    height: 146,
+    width: 99,
+    padding: 10,
+  },
+  titleView: {
+    flexDirection: 'row',
+    flex: 1,
+    paddingBottom: 10,
   },
 });
 
@@ -63,23 +91,44 @@ export default class Movie extends Component {
     return (
       <ScrollView style={styles.container}>
 
-        <Image
-          style={{width: 99, height: 146}}
-          source={{ uri: this.setUriAsHttps() }}
-        />
+        <View style={styles.titleView}>
 
-        <View style={styles.section}>
-          <Text style={styles.title}>
-            {this.props.movie.Title}
-          </Text>
+          <Image
+            style={styles.titleImage}
+            source={{ uri: this.setUriAsHttps() }}
+          />
 
-          <Text style={styles.originalTitle}>
-            {this.props.movie.OriginalTitle} ({this.props.movie.ProductionYear})
-          </Text>
+          <View style={styles.sectionTitle}>
+            <Text style={styles.title}>
+              {this.props.movie.Title}
+            </Text>
+            <Text style={styles.originalTitle}>
+              {this.props.movie.OriginalTitle}
+            </Text>
+            <Text style={styles.originalTitle}>
+              {this.props.movie.ProductionYear}
+            </Text>
+          </View>
+
         </View>
 
         <View style={styles.section}>
           <Text style={styles.detailBold}>{moment(this.props.show.dttmShowStart).format('HH:mm')} {this.props.show.Theatre} ({this.props.show.TheatreAuditorium})</Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.detail}>
+            Ensi-ilta: <Text style={styles.detailBold}>
+              {moment(this.props.movie.dtLocalRelease).format('D.M.YYYY')}</Text>
+          </Text>
+
+          <Text style={styles.detail}>
+            Kesto: <Text style={styles.detailBold}>{this.getDuration()}</Text>
+          </Text>
+
+          <Text style={styles.detail}>Ikäraja: <Text style={styles.detailBold}>
+            {this.props.movie.RatingLabel}</Text>
+          </Text>
         </View>
 
         <View style={styles.section}>
@@ -105,24 +154,17 @@ export default class Movie extends Component {
 
         <View style={styles.section}>
           <Text style={styles.detail}>
-            Ensi-ilta: <Text style={styles.detailBold}>
-              {moment(this.props.movie.dtLocalRelease).format('D.M.YYYY')}</Text>
-          </Text>
-
-          <Text style={styles.detail}>
-            Kesto: <Text style={styles.detailBold}>{this.getDuration()}</Text>
-          </Text>
-
-          <Text style={styles.detail}>Ikäraja: <Text style={styles.detailBold}>
-            {this.props.movie.RatingLabel}</Text>
+            {this.props.movie.ShortSynopsis}
           </Text>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.detail}>
-            {this.props.movie.Synopsis}
-          </Text>
-        </View>
+        {this.props.movie.Gallery.GalleryImage.map((image, i) =>
+          <View key={i} style={styles.thumbnailView}>
+            <Image
+              style={styles.thumbnail}
+              source={{ uri: image.Location }}
+            /></View>)}
+
       </ScrollView>
     );
   }

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: 200,
     padding: 10,
-    paddingTop: 70,
+    paddingTop: 65,
   },
 });
 
@@ -71,7 +71,7 @@ class Home extends Component {
         });
       }
     };
-    const url = 'http://www.finnkino.fi/xml/Events/';
+    const url = 'http://www.finnkino.fi/xml/Events?includeLinks=true&includeGallery=true&includePictures=true';
     request.open('GET', url);
     request.send();
   }

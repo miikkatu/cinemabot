@@ -42,6 +42,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>media.finnkino.fi</key>
+			<dict>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>www.finnkino.fi</key>
 			<dict>
 				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
