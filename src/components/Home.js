@@ -76,9 +76,7 @@ class Home extends Component {
     request.send();
   }
 
-  isUpcoming = (value) => {
-    return moment(value.dttmShowStart).isAfter(this.state.selectedDate);
-  }
+  isUpcoming = value => moment(value.dttmShowStart).isAfter(this.state.selectedDate);
 
   fetchSchedule = (areaID, date) => {
     const request = new XMLHttpRequest();

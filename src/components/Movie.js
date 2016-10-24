@@ -4,9 +4,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
 
 require('moment/locale/fi');
@@ -59,21 +57,18 @@ const styles = StyleSheet.create({
 
 export default class Movie extends Component {
   getActorList = () => {
-    const actors = this.props.movie.Cast.Actor.map((actor) => {
-      return ` ${actor.FirstName} ${actor.LastName}`;
-    });
+    const actors = this.props.movie.Cast.Actor
+      .map(actor => ` ${actor.FirstName} ${actor.LastName}`);
     return actors.toString().slice(1);
   }
 
   getDirectorList = () => {
     if (this.props.movie.Directors.Director.constructor === Array) {
-      const directors = this.props.movie.Directors.Director.map((director) => {
-        return ` ${director.FirstName} ${director.LastName}`;
-      });
+      const directors = this.props.movie.Directors.Director
+        .map(director => ` ${director.FirstName} ${director.LastName}`);
       return directors.toString().slice(1);
-    } else {
-      return ` ${this.props.movie.Directors.Director.FirstName} ${this.props.movie.Directors.Director.LastName}`;
     }
+    return ` ${this.props.movie.Directors.Director.FirstName} ${this.props.movie.Directors.Director.LastName}`;
   }
 
   getDuration = () => {
@@ -81,13 +76,10 @@ export default class Movie extends Component {
     return `${m.hours()} h ${m.minutes()} min`;
   }
 
-  setUriAsHttps = () => {
-    return this.props.movie.Images.EventSmallImagePortrait
-      .replace(/^http:\/\//i, 'https://');
-  }
+  setUriAsHttps = () =>
+    this.props.movie.Images.EventSmallImagePortrait.replace(/^http:\/\//i, 'https://');
 
   render() {
-    const goToHome = () => Actions.pop();
     return (
       <ScrollView style={styles.container}>
 

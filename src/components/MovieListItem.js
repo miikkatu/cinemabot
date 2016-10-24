@@ -25,7 +25,7 @@ export default class MovieListItem extends Component {
     const goToMovie = () => Actions.movie({
       movie: this.props.movie,
       show: this.props.show,
-      title: this.props.movie.title,
+      title: this.props.movie.Title,
     });
     return (
       <View style={styles.container}>

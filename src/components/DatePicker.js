@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePickerIOS, StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  datePicker: {
-    fontSize: 16,
-  },
-});
+import { DatePickerIOS, View } from 'react-native';
 
 export default class DatePicker extends Component {
   render() {

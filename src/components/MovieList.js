@@ -10,9 +10,7 @@ const styles = StyleSheet.create({
 });
 
 export default class MovieList extends Component {
-  getMovie = (id) => {
-    return this.props.movies.find(x => x.ID === id);
-  }
+  getMovie = id => this.props.movies.find(x => x.ID === id);
 
   render() {
     return (
