@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View } from 'react-native';
 import moment from 'moment';
 
 import AreaPicker from '../components/AreaPicker';
@@ -13,15 +18,21 @@ import theatreAreaConverter from '../converters/theatreArea';
 require('moment/locale/fi');
 
 const styles = StyleSheet.create({
-  pickerTitle: {
-    fontSize: 18,
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
     height: 200,
-    padding: 10,
-    paddingTop: 65,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 30,
+  },
+  picker: {
+    height: 40,
+  },
+  pickerTitle: {
+    color: 'white',
+    fontSize: 24,
   },
 });
 
@@ -132,8 +143,9 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.toggleAreaPicker}>
-          <Text style={styles.pickerTitle}>Alue: {this.state.selectedAreaName}</Text>
+        <StatusBar backgroundColor="blue" barStyle="light-content" />
+        <TouchableHighlight onPress={this.toggleAreaPicker} style={styles.picker}>
+          <Text style={styles.pickerTitle}>{this.state.selectedAreaName}</Text>
         </TouchableHighlight>
         {this.state.showAreaPicker ?
           <AreaPicker
@@ -141,8 +153,8 @@ class Home extends Component {
             onValueChange={this.handleAreaChange}
             selectedAreaID={this.state.selectedAreaID}
           /> : <View />}
-        <TouchableHighlight onPress={this.toggleDatePicker}>
-          <Text style={styles.pickerTitle}>Päivä: {moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
+        <TouchableHighlight onPress={this.toggleDatePicker} style={styles.picker}>
+          <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
         </TouchableHighlight>
         {this.state.showDatePicker ?
           <DatePicker

@@ -1,5 +1,7 @@
 # cinemabot
 
+An app to view Finnkino schedules.
+
 ## How to use
 
 Follow instructions at https://facebook.github.io/react-native/docs/getting-started.html to install prerequirements.

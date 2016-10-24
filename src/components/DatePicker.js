@@ -1,16 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { DatePickerIOS, View } from 'react-native';
+import { DatePickerIOS, StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  picker: {
+    backgroundColor: '#fff',
+  },
+});
 
 export default class DatePicker extends Component {
   render() {
     return (
-      <View>
-        <DatePickerIOS
-          date={this.props.selectedDate}
-          mode="datetime"
-          onDateChange={this.props.onDateChange}
-        />
-      </View>
+      <DatePickerIOS
+        style={styles.picker}
+        date={this.props.selectedDate}
+        mode="datetime"
+        onDateChange={this.props.onDateChange}
+      />
     );
   }
 }

@@ -15,13 +15,16 @@ const styles = StyleSheet.create({
     paddingTop: 65,
   },
   detail: {
+    color: 'white',
     fontSize: 14,
   },
   detailBold: {
+    color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
   },
   originalTitle: {
+    color: 'white',
     fontSize: 14,
     fontStyle: 'italic',
   },
@@ -41,6 +44,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   title: {
+    color: 'white',
     fontSize: 20,
   },
   titleImage: {

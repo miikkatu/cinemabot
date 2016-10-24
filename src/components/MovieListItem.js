@@ -7,15 +7,19 @@ require('moment/locale/fi');
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
-    margin: 10,
+    backgroundColor: 'black',
+    borderColor: 'darkgrey',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+    paddingTop: 10,
   },
   time: {
+    color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
   },
   title: {
-    color: 'blue',
+    color: 'yellow',
     fontSize: 20,
   },
 });
