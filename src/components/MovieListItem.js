@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     borderColor: '#383838',
     borderBottomWidth: 1,
     paddingBottom: 5,
-    paddingTop: 10,
   },
   time: {
     color: '#e6e6e6',

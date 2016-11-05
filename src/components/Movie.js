@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 65,
+    paddingTop: 30,
   },
   contentDescriptor: {
     height: 50,

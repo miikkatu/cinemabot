@@ -42,7 +42,7 @@ export default class App extends Component {
             key="movielist"
             component={MovieList}
             duration={1}
-            hideNavBar={false}
+            hideNavBar
             navigationBarStyle={styles.navigationBarStyle}
             backTitle="Takaisin"
             titleStyle={styles.titleStyle}
@@ -51,7 +51,7 @@ export default class App extends Component {
             key="movie"
             component={Movie}
             duration={1}
-            hideNavBar={false}
+            hideNavBar
             navigationBarStyle={styles.navigationBarStyle}
             backTitle="Takaisin"
             backStyle={styles.titleStyle}
