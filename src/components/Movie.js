@@ -19,16 +19,16 @@ const styles = StyleSheet.create({
     paddingTop: 65,
   },
   detail: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 18,
   },
   detailBold: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 18,
     fontWeight: 'bold',
   },
   originalTitle: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 18,
     fontStyle: 'italic',
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   title: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 22,
   },
   titleImage: {

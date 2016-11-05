@@ -8,13 +8,13 @@ require('moment/locale/fi');
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
-    borderColor: 'darkgrey',
+    borderColor: '#383838',
     borderBottomWidth: 1,
     paddingBottom: 5,
     paddingTop: 10,
   },
   time: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 18,
     paddingLeft: 5,
     paddingRight: 5,

@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   container: {
+    backgroundColor: '#000',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   pickerTitle: {
-    color: 'white',
+    color: '#e6e6e6',
     fontSize: 28,
   },
 });
@@ -174,7 +175,6 @@ class Home extends Component {
     this.setState({
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
-      showAreaPicker: !this.state.showAreaPicker,
     });
     this.fetchSchedule(id, this.state.selectedDate);
   }
@@ -182,7 +182,6 @@ class Home extends Component {
   handleDateChange = (selectedDate) => {
     this.setState({
       selectedDate,
-      showDatePicker: !this.state.showDatePicker,
     });
     this.fetchSchedule(this.state.selectedAreaID, selectedDate);
   }

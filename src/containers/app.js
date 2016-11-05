@@ -16,7 +16,7 @@ const getSceneStyle = () => {
 
 const styles = StyleSheet.create({
   navigationBarStyle: {
-    backgroundColor: 'black',
+    backgroundColor: '#000',
     borderBottomWidth: 0,
   },
   titleStyle: {
