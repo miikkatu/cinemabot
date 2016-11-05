@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,16 +8,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  title: {
-    color: 'white',
+  logo: {
+    height: 240,
+    width: 240,
   },
 });
+
+const logo = require('../images/f_logo.png');
 
 class Loading extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Cinemabot</Text>
+        <Image style={styles.logo} source={logo} />
       </View>
     );
   }

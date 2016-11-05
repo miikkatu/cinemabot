@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AsyncStorage,
+  Image,
   StatusBar,
   StyleSheet,
   Text,
@@ -34,6 +35,11 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
   },
+  logo: {
+    height: 120,
+    width: 120,
+    marginTop: 20,
+  },
   picker: {
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -43,17 +49,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 24,
   },
-  title: {
-    color: 'white',
-    fontSize: 24,
-  },
-  titleContainer: {
+  logoContainer: {
     alignItems: 'center',
     paddingTop: 30,
   },
 });
 
 const defaultAreaID = '1029';
+const logo = require('../images/f_logo.png');
 
 class Home extends Component {
   state = {
@@ -214,8 +217,8 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Cinemabot</Text>
+        <View style={styles.logoContainer}>
+          <Image style={styles.logo} source={logo} />
         </View>
         <View>
           <TouchableHighlight onPress={this.toggleAreaPicker} style={styles.picker}>
