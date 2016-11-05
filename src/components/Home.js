@@ -115,27 +115,33 @@ class Home extends Component {
   isUpcoming = value => moment(value.dttmShowStart).isAfter(this.state.selectedDate);
 
   fetchSchedule = (areaID, date) => {
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = () => {
-      if (request.readyState !== 4) {
-        return;
-      }
-      if (request.status === 200) {
-        const requestResult = scheduleConverter(request.responseText);
-        if (requestResult !== undefined && requestResult.length > 0) {
-          this.setState({
-            schedule: requestResult.filter(this.isUpcoming),
-          });
-        } else {
-          this.setState({
-            schedule: [],
-          });
+    if (areaID === defaultAreaID) {
+      this.setState({
+        schedule: [],
+      });
+    } else {
+      const request = new XMLHttpRequest();
+      request.onreadystatechange = () => {
+        if (request.readyState !== 4) {
+          return;
         }
-      }
-    };
-    const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&dt=${moment(date).format('DD.MM.YYYY')}`;
-    request.open('GET', url);
-    request.send();
+        if (request.status === 200) {
+          const requestResult = scheduleConverter(request.responseText);
+          if (requestResult !== undefined && requestResult.length > 0) {
+            this.setState({
+              schedule: requestResult.filter(this.isUpcoming),
+            });
+          } else {
+            this.setState({
+              schedule: [],
+            });
+          }
+        }
+      };
+      const url = `http://www.finnkino.fi/xml/Schedule?area=${areaID}&dt=${moment(date).format('DD.MM.YYYY')}`;
+      request.open('GET', url);
+      request.send();
+    }
   }
 
   handleAreaChange = (id) => {
