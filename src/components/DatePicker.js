@@ -13,6 +13,7 @@ export default class DatePicker extends Component {
       <DatePickerIOS
         style={styles.picker}
         date={this.props.selectedDate}
+        minimumDate={new Date()}
         mode="datetime"
         onDateChange={this.props.onDateChange}
       />
