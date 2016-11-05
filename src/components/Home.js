@@ -77,10 +77,13 @@ class Home extends Component {
         return;
       }
       if (request.status === 200) {
+        const areas = theatreAreaConverter(request.responseText);
         this.setState({
-          areas: theatreAreaConverter(request.responseText),
+          areas,
           loadingAreas: false,
+          selectedAreaName: areas.find(x => x.ID === this.state.selectedAreaID).Name,
         });
+        this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
       }
     };
     request.open('GET', 'http://www.finnkino.fi/xml/TheatreAreas/');
