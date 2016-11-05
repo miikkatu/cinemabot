@@ -10,17 +10,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderColor: 'darkgrey',
     borderBottomWidth: 1,
-    paddingBottom: 10,
+    paddingBottom: 5,
     paddingTop: 10,
   },
   time: {
     color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 18,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   title: {
     color: '#ffc40c',
-    fontSize: 20,
+    fontSize: 22,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
 });
 

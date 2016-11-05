@@ -12,21 +12,22 @@ require('moment/locale/fi');
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
-    paddingTop: 50,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 65,
   },
   detail: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 18,
   },
   detailBold: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   originalTitle: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 18,
     fontStyle: 'italic',
   },
   section: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 22,
   },
   titleImage: {
     height: 146,

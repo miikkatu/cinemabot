@@ -47,11 +47,11 @@ const styles = StyleSheet.create({
   picker: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    height: 40,
+    height: 60,
   },
   pickerTitle: {
     color: 'white',
-    fontSize: 24,
+    fontSize: 28,
   },
 });
 
@@ -148,10 +148,13 @@ class Home extends Component {
         if (request.status === 200) {
           const requestResult = scheduleConverter(request.responseText);
           if (requestResult !== undefined && requestResult.length > 0) {
-            this.setState({
-              schedule: requestResult.filter(this.isUpcoming),
-              showShowScheduleButton: true,
-            });
+            const filteredResults = requestResult.filter(this.isUpcoming);
+            if (filteredResults.length > 0) {
+              this.setState({
+                schedule: filteredResults,
+                showShowScheduleButton: true,
+              });
+            }
           } else {
             this.setState({
               schedule: [],
@@ -214,23 +217,31 @@ class Home extends Component {
     if (this.state.showShowScheduleButton) {
       return {
         color: '#ffc40c',
-        fontSize: 24,
+        fontSize: 28,
       };
     }
     return {
       color: 'black',
-      fontSize: 24,
+      fontSize: 28,
     };
   }
 
   render() {
-    const goToMovieList = () => Actions.movielist({
-      movies: this.state.movies,
-      schedule: this.state.schedule,
-    });
+    const goToMovieList = () => {
+      this.setState({
+        showAreaPicker: false,
+        showDatePicker: false,
+      });
+      Actions.movielist({
+        movies: this.state.movies,
+        schedule: this.state.schedule,
+      });
+    };
+
     if (this.state.loadingAreas || this.state.loadingMovies) {
       return <Loading />;
     }
+
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
@@ -248,7 +259,7 @@ class Home extends Component {
               selectedAreaID={this.state.selectedAreaID}
             /> : <View />}
           <TouchableHighlight onPress={this.toggleDatePicker} style={styles.picker}>
-            <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
+            <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY HH:mm')}</Text>
           </TouchableHighlight>
           {this.state.showDatePicker ?
             <DatePicker

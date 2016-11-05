@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 
 import MovieListItem from './MovieListItem';
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
-    paddingTop: 65,
+    paddingTop: 50,
   },
 });
 
