@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import AreaPicker from '../components/AreaPicker';
 import DatePicker from '../components/DatePicker';
+import Loading from '../components/Loading';
 import MovieList from '../components/MovieList';
 
 import eventConverter from '../converters/event';
@@ -43,6 +44,8 @@ class Home extends Component {
   state = {
     areaDates: [],
     areas: [],
+    loadingAreas: true,
+    loadingMovies: true,
     movies: [],
     schedule: [],
     selectedAreaID: defaultAreaID,
@@ -57,6 +60,7 @@ class Home extends Component {
       AsyncStorage.getItem('savedAreaID').then((value) => {
         this.setState({
           selectedAreaID: value,
+          isLoading: false,
         });
       }).done();
     } catch (e) {
@@ -75,6 +79,7 @@ class Home extends Component {
       if (request.status === 200) {
         this.setState({
           areas: theatreAreaConverter(request.responseText),
+          loadingAreas: false,
         });
       }
     };
@@ -90,6 +95,7 @@ class Home extends Component {
       }
       if (request.status === 200) {
         this.setState({
+          loadingMovies: false,
           movies: eventConverter(request.responseText),
         });
       }
@@ -154,6 +160,9 @@ class Home extends Component {
   }
 
   render() {
+    if (this.state.loadingAreas || this.state.loadingMovies) {
+      return <Loading />;
+    }
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
