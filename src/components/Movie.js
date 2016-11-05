@@ -18,6 +18,15 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 65,
   },
+  contentDescriptor: {
+    height: 50,
+    width: 50,
+  },
+  contentDescriptors: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingBottom: 10,
+  },
   detail: {
     color: '#e6e6e6',
     fontSize: 18,
@@ -144,6 +153,17 @@ export default class Movie extends Component {
             {this.props.movie.RatingLabel}</Text>
           </Text>
         </View>
+
+        {this.props.movie.ContentDescriptors.ContentDescriptor ?
+          <View style={styles.contentDescriptors}>
+            {this.props.movie.ContentDescriptors.ContentDescriptor.map((descriptor, i) =>
+              <Image
+                key={i}
+                style={styles.contentDescriptor}
+                source={{ uri: descriptor.ImageURL }}
+              />
+            )}
+          </View> : null}
 
         <View style={styles.section}>
           <Text style={styles.detail}>
