@@ -108,6 +108,7 @@ export default class Movie extends Component {
   };
 
   render() {
+    console.log(this.props.movie.ContentDescriptors.ContentDescriptor);
     return (
       <ScrollView style={styles.container}>
         <View style={styles.titleView}>
@@ -154,16 +155,17 @@ export default class Movie extends Component {
           </Text>
         </View>
 
-        {this.props.movie.ContentDescriptors.ContentDescriptor ?
-          <View style={styles.contentDescriptors}>
-            {this.props.movie.ContentDescriptors.ContentDescriptor.map((descriptor, i) =>
-              <Image
-                key={i}
-                style={styles.contentDescriptor}
-                source={{ uri: descriptor.ImageURL }}
-              />
-            )}
-          </View> : null}
+        {this.props.movie.ContentDescriptors.ContentDescriptor !== undefined
+          && this.props.movie.ContentDescriptors.ContentDescriptor.length > 0 ?
+            <View style={styles.contentDescriptors}>
+              {this.props.movie.ContentDescriptors.ContentDescriptor.map((descriptor, i) =>
+                <Image
+                  key={i}
+                  style={styles.contentDescriptor}
+                  source={{ uri: descriptor.ImageURL }}
+                />
+              )}
+            </View> : null}
 
         <View style={styles.section}>
           <Text style={styles.detail}>

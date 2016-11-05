@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderColor: '#383838',
     borderBottomWidth: 1,
+    marginBottom: 5,
     paddingBottom: 5,
   },
   time: {
