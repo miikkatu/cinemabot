@@ -40,6 +40,10 @@ const styles = StyleSheet.create({
     width: 120,
     marginTop: 20,
   },
+  logoContainer: {
+    alignItems: 'center',
+    paddingTop: 30,
+  },
   picker: {
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -48,10 +52,6 @@ const styles = StyleSheet.create({
   pickerTitle: {
     color: 'white',
     fontSize: 24,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    paddingTop: 30,
   },
 });
 
@@ -71,6 +71,7 @@ class Home extends Component {
     selectedDate: new Date(),
     showAreaPicker: false,
     showDatePicker: false,
+    showShowScheduleButton: false,
   };
 
   componentDidMount() {
@@ -136,6 +137,7 @@ class Home extends Component {
     if (areaID === defaultAreaID) {
       this.setState({
         schedule: [],
+        showShowScheduleButton: false,
       });
     } else {
       const request = new XMLHttpRequest();
@@ -148,10 +150,12 @@ class Home extends Component {
           if (requestResult !== undefined && requestResult.length > 0) {
             this.setState({
               schedule: requestResult.filter(this.isUpcoming),
+              showShowScheduleButton: true,
             });
           } else {
             this.setState({
               schedule: [],
+              showShowScheduleButton: false,
             });
           }
         }
@@ -206,6 +210,19 @@ class Home extends Component {
     }
   }
 
+  showShowScheduleButtonStyle = () => {
+    if (this.state.showShowScheduleButton) {
+      return {
+        color: '#ffc40c',
+        fontSize: 24,
+      };
+    }
+    return {
+      color: 'black',
+      fontSize: 24,
+    };
+  }
+
   render() {
     const goToMovieList = () => Actions.movielist({
       movies: this.state.movies,
@@ -240,7 +257,7 @@ class Home extends Component {
               selectedDate={this.state.selectedDate}
             /> : <View />}
           <TouchableHighlight style={styles.button} onPress={goToMovieList}>
-            <Text style={styles.pickerTitle}>Näytä elokuvat</Text>
+            <Text style={this.showShowScheduleButtonStyle()}>Näytä elokuvat</Text>
           </TouchableHighlight>
         </View>
       </View>
