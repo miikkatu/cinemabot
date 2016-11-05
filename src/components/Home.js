@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   StatusBar,
   StyleSheet,
   Text,
@@ -36,13 +37,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const defaultAreaID = '1029';
+
 class Home extends Component {
   state = {
     areaDates: [],
     areas: [],
     movies: [],
     schedule: [],
-    selectedAreaID: '1029',
+    selectedAreaID: defaultAreaID,
     selectedAreaName: 'Valitse alue/teatteri',
     selectedDate: new Date(),
     showAreaPicker: false,
@@ -50,6 +53,15 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    try {
+      AsyncStorage.getItem('savedAreaID').then((value) => {
+        this.setState({
+          selectedAreaID: value,
+        });
+      }).done();
+    } catch (e) {
+      AsyncStorage.setItem('savedAreaID', defaultAreaID);
+    }
     this.fetchAreas();
     this.fetchMovies();
   }
@@ -114,6 +126,7 @@ class Home extends Component {
   }
 
   handleAreaChange = (id) => {
+    AsyncStorage.setItem('savedAreaID', id);
     this.setState({
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
