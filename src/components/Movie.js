@@ -154,12 +154,13 @@ export default class Movie extends Component {
           </Text>
         </View>
 
-        {this.props.movie.Gallery.GalleryImage.map((image, i) =>
-          <View key={i} style={styles.thumbnailView}>
-            <Image
-              style={styles.thumbnail}
-              source={{ uri: image.Location }}
-            /></View>)}
+        {this.props.movie.Gallery.GalleryImage ?
+          this.props.movie.Gallery.GalleryImage.map((image, i) =>
+            <View key={i} style={styles.thumbnailView}>
+              <Image
+                style={styles.thumbnail}
+                source={{ uri: image.Location }}
+              /></View>) : null}
 
       </ScrollView>
     );
