@@ -58,10 +58,12 @@ class Home extends Component {
   componentDidMount() {
     try {
       AsyncStorage.getItem('savedAreaID').then((value) => {
-        this.setState({
-          selectedAreaID: value,
-          isLoading: false,
-        });
+        if (value !== null) {
+          this.setState({
+            selectedAreaID: value,
+            isLoading: false,
+          });
+        }
       }).done();
     } catch (e) {
       AsyncStorage.setItem('savedAreaID', defaultAreaID);
@@ -83,7 +85,9 @@ class Home extends Component {
           loadingAreas: false,
           selectedAreaName: areas.find(x => x.ID === this.state.selectedAreaID).Name,
         });
-        this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+        if (this.state.selectedAreaID !== defaultAreaID) {
+          this.fetchSchedule(this.state.selectedAreaID, this.state.selectedDate);
+        }
       }
     };
     request.open('GET', 'http://www.finnkino.fi/xml/TheatreAreas/');
