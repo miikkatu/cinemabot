@@ -164,6 +164,7 @@ class Home extends Component {
     this.setState({
       selectedAreaID: id,
       selectedAreaName: this.state.areas.find(x => x.ID === id).Name,
+      showAreaPicker: !this.state.showAreaPicker,
     });
     this.fetchSchedule(id, this.state.selectedDate);
   }
@@ -171,20 +172,35 @@ class Home extends Component {
   handleDateChange = (selectedDate) => {
     this.setState({
       selectedDate,
+      showDatePicker: !this.state.showDatePicker,
     });
     this.fetchSchedule(this.state.selectedAreaID, selectedDate);
   }
 
   toggleAreaPicker = () => {
-    this.setState({
-      showAreaPicker: !this.state.showAreaPicker,
-    });
+    if (!this.state.showAreaPicker) {
+      this.setState({
+        showAreaPicker: true,
+        showDatePicker: false,
+      });
+    } else {
+      this.setState({
+        showAreaPicker: false,
+      });
+    }
   }
 
   toggleDatePicker = () => {
-    this.setState({
-      showDatePicker: !this.state.showDatePicker,
-    });
+    if (!this.state.showDatePicker) {
+      this.setState({
+        showDatePicker: true,
+        showAreaPicker: false,
+      });
+    } else {
+      this.setState({
+        showDatePicker: false,
+      });
+    }
   }
 
   render() {
