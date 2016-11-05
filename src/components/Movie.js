@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View } from 'react-native';
+import FitImage from 'react-native-fit-image';
 import moment from 'moment';
 
 require('moment/locale/fi');
@@ -35,10 +36,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 10,
     paddingLeft: 10,
-  },
-  thumbnail: {
-    height: 200,
-    width: 296,
   },
   thumbnailView: {
     paddingBottom: 10,
@@ -157,7 +154,7 @@ export default class Movie extends Component {
         {this.props.movie.Gallery.GalleryImage ?
           this.props.movie.Gallery.GalleryImage.map((image, i) =>
             <View key={i} style={styles.thumbnailView}>
-              <Image
+              <FitImage
                 style={styles.thumbnail}
                 source={{ uri: image.Location }}
               /></View>) : null}
