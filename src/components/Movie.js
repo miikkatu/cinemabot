@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {
   Image,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View } from 'react-native';
 import FitImage from 'react-native-fit-image';
 import moment from 'moment';
@@ -40,6 +42,13 @@ const styles = StyleSheet.create({
   },
   thumbnailView: {
     paddingBottom: 10,
+  },
+  link: {
+    color: '#ffc40c',
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    paddingTop: 5,
   },
   title: {
     color: 'white',
@@ -81,6 +90,14 @@ export default class Movie extends Component {
   setUriAsHttps = () =>
     this.props.movie.Images.EventSmallImagePortrait.replace(/^http:\/\//i, 'https://');
 
+  openEventURL = () => {
+    Linking.canOpenURL(this.props.show.EventURL).then((supported) => {
+      if (supported) {
+        Linking.openURL(this.props.show.EventURL);
+      }
+    });
+  };
+
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -108,6 +125,10 @@ export default class Movie extends Component {
         <View style={styles.section}>
           <Text style={styles.detailBold}>{moment(this.props.show.dttmShowStart).format('HH:mm')} {this.props.show.Theatre} ({this.props.show.TheatreAuditorium})</Text>
         </View>
+
+        <TouchableOpacity onPress={this.openEventURL}>
+          <Text style={styles.link}>Osta tai varaa liput</Text>
+        </TouchableOpacity>
 
         <View style={styles.section}>
           <Text style={styles.detail}>
