@@ -4,6 +4,7 @@ import { Router, Scene } from 'react-native-router-flux';
 
 import Home from '../components/Home';
 import Movie from '../components/Movie';
+import MovieList from '../components/MovieList';
 
 const getSceneStyle = () => {
   const style = {
@@ -16,9 +17,10 @@ const getSceneStyle = () => {
 const styles = StyleSheet.create({
   navigationBarStyle: {
     backgroundColor: 'black',
+    borderBottomWidth: 0,
   },
   titleStyle: {
-    color: 'white',
+    backgroundColor: '#000',
   },
 });
 
@@ -27,14 +29,32 @@ export default class App extends Component {
     return (
       <Router getSceneStyle={getSceneStyle}>
         <Scene key="root">
-          <Scene key="home" component={Home} title="Cinemabot" hideNavBar initial />
+          <Scene
+            key="home"
+            component={Home}
+            duration={1}
+            hideNavBar
+            navigationBarStyle={styles.navigationBarStyle}
+            titleStyle={styles.titleStyle}
+            initial
+          />
+          <Scene
+            key="movielist"
+            component={MovieList}
+            duration={1}
+            hideNavBar={false}
+            navigationBarStyle={styles.navigationBarStyle}
+            backTitle="Takaisin"
+            titleStyle={styles.titleStyle}
+          />
           <Scene
             key="movie"
             component={Movie}
-            title="Cinemabot"
+            duration={1}
             hideNavBar={false}
             navigationBarStyle={styles.navigationBarStyle}
-            titleStyle={styles.titleStyle}
+            backTitle="Takaisin"
+            backStyle={styles.titleStyle}
           />
         </Scene>
       </Router>

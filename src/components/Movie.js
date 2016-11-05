@@ -13,7 +13,7 @@ require('moment/locale/fi');
 const styles = StyleSheet.create({
   container: {
     margin: 20,
-    paddingTop: 65,
+    paddingTop: 50,
   },
   detail: {
     color: 'white',
@@ -83,7 +83,6 @@ export default class Movie extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-
         <View style={styles.titleView}>
 
           <Image

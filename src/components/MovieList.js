@@ -1,14 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import MovieListItem from './MovieListItem';
 
-export default class MovieList extends Component {
+const styles = StyleSheet.create({
+  container: {
+    margin: 20,
+    paddingTop: 65,
+  },
+});
+
+class MovieList extends Component {
   getMovie = id => this.props.movies.find(x => x.ID === id);
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         {this.props.schedule !== undefined ?
           this.props.schedule.map((show, i) =>
             <View key={i}>
@@ -23,3 +30,5 @@ MovieList.propTypes = {
   movies: PropTypes.array,
   schedule: PropTypes.array,
 };
+
+export default MovieList;

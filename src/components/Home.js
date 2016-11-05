@@ -7,11 +7,11 @@ import {
   TouchableHighlight,
   View } from 'react-native';
 import moment from 'moment';
+import { Actions } from 'react-native-router-flux';
 
 import AreaPicker from '../components/AreaPicker';
 import DatePicker from '../components/DatePicker';
 import Loading from '../components/Loading';
-import MovieList from '../components/MovieList';
 
 import eventConverter from '../converters/event';
 import scheduleConverter from '../converters/schedule';
@@ -20,21 +20,36 @@ import theatreAreaConverter from '../converters/theatreArea';
 require('moment/locale/fi');
 
 const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    height: 40,
+    marginTop: 30,
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    height: 200,
-    paddingBottom: 5,
+    justifyContent: 'space-between',
+    paddingBottom: 20,
     paddingLeft: 5,
     paddingRight: 5,
-    paddingTop: 30,
   },
   picker: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     height: 40,
   },
   pickerTitle: {
     color: 'white',
     fontSize: 24,
+  },
+  title: {
+    color: 'white',
+    fontSize: 24,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    paddingTop: 30,
   },
 });
 
@@ -173,31 +188,42 @@ class Home extends Component {
   }
 
   render() {
+    const goToMovieList = () => Actions.movielist({
+      movies: this.state.movies,
+      schedule: this.state.schedule,
+    });
     if (this.state.loadingAreas || this.state.loadingMovies) {
       return <Loading />;
     }
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
-        <TouchableHighlight onPress={this.toggleAreaPicker} style={styles.picker}>
-          <Text style={styles.pickerTitle}>{this.state.selectedAreaName}</Text>
-        </TouchableHighlight>
-        {this.state.showAreaPicker ?
-          <AreaPicker
-            areas={this.state.areas}
-            onValueChange={this.handleAreaChange}
-            selectedAreaID={this.state.selectedAreaID}
-          /> : <View />}
-        <TouchableHighlight onPress={this.toggleDatePicker} style={styles.picker}>
-          <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
-        </TouchableHighlight>
-        {this.state.showDatePicker ?
-          <DatePicker
-            areaDates={this.state.areaDates}
-            onDateChange={this.handleDateChange}
-            selectedDate={this.state.selectedDate}
-          /> : <View />}
-        <MovieList movies={this.state.movies} schedule={this.state.schedule} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Cinemabot</Text>
+        </View>
+        <View>
+          <TouchableHighlight onPress={this.toggleAreaPicker} style={styles.picker}>
+            <Text style={styles.pickerTitle}>{this.state.selectedAreaName}</Text>
+          </TouchableHighlight>
+          {this.state.showAreaPicker ?
+            <AreaPicker
+              areas={this.state.areas}
+              onValueChange={this.handleAreaChange}
+              selectedAreaID={this.state.selectedAreaID}
+            /> : <View />}
+          <TouchableHighlight onPress={this.toggleDatePicker} style={styles.picker}>
+            <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY')}</Text>
+          </TouchableHighlight>
+          {this.state.showDatePicker ?
+            <DatePicker
+              areaDates={this.state.areaDates}
+              onDateChange={this.handleDateChange}
+              selectedDate={this.state.selectedDate}
+            /> : <View />}
+          <TouchableHighlight style={styles.button} onPress={goToMovieList}>
+            <Text style={styles.pickerTitle}>Näytä elokuvat</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
