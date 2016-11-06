@@ -23,16 +23,15 @@ require('moment/locale/fi');
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: 40,
-    marginTop: 25,
+    marginBottom: 10,
+    marginTop: 10,
   },
   container: {
     backgroundColor: '#000',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingBottom: 20,
+    paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
   },
@@ -44,11 +43,6 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     paddingTop: 30,
-  },
-  picker: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: 60,
   },
   pickerTitle: {
     color: '#e6e6e6',
@@ -248,27 +242,27 @@ class Home extends Component {
           <Image style={styles.logo} source={logo} />
         </View>
         <View>
-          <TouchableHighlight onPress={this.toggleAreaPicker} style={styles.picker}>
+          <TouchableHighlight style={styles.button} onPress={this.toggleAreaPicker}>
             <Text style={styles.pickerTitle}>{this.state.selectedAreaName}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this.toggleDatePicker}>
+            <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY HH:mm')}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={goToMovieList}>
+            <Text style={this.showShowScheduleButtonStyle()}>Näytä elokuvat</Text>
           </TouchableHighlight>
           {this.state.showAreaPicker ?
             <AreaPicker
               areas={this.state.areas}
               onValueChange={this.handleAreaChange}
               selectedAreaID={this.state.selectedAreaID}
-            /> : <View />}
-          <TouchableHighlight onPress={this.toggleDatePicker} style={styles.picker}>
-            <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY HH:mm')}</Text>
-          </TouchableHighlight>
+            /> : null}
           {this.state.showDatePicker ?
             <DatePicker
               areaDates={this.state.areaDates}
               onDateChange={this.handleDateChange}
               selectedDate={this.state.selectedDate}
-            /> : <View />}
-          <TouchableHighlight style={styles.button} onPress={goToMovieList}>
-            <Text style={this.showShowScheduleButtonStyle()}>Näytä elokuvat</Text>
-          </TouchableHighlight>
+            /> : null}
         </View>
       </View>
     );
