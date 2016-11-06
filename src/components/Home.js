@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    backgroundColor: '#000',
+    backgroundColor: '#334d5d',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   logo: {
-    height: 120,
-    width: 120,
-    marginTop: 20,
+    height: 180,
+    width: 180,
   },
   logoContainer: {
     alignItems: 'center',
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
 });
 
 const defaultAreaID = '1029';
-const logo = require('../images/f_logo.png');
+const logo = require('../images/logo.png');
 
 class Home extends Component {
   state = {
@@ -209,12 +208,12 @@ class Home extends Component {
   showShowScheduleButtonStyle = () => {
     if (this.state.showShowScheduleButton) {
       return {
-        color: '#ffc40c',
+        color: '#efc84a',
         fontSize: 28,
       };
     }
     return {
-      color: 'black',
+      color: '#334d5d',
       fontSize: 28,
     };
   }
@@ -242,13 +241,25 @@ class Home extends Component {
           <Image style={styles.logo} source={logo} />
         </View>
         <View>
-          <TouchableHighlight style={styles.button} onPress={this.toggleAreaPicker}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleAreaPicker}
+            underlayColor="#334d5d"
+          >
             <Text style={styles.pickerTitle}>{this.state.selectedAreaName}</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this.toggleDatePicker}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleDatePicker}
+            underlayColor="#334d5d"
+          >
             <Text style={styles.pickerTitle}>{moment(this.state.selectedDate).format('D.M.YYYY HH:mm')}</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={goToMovieList}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={goToMovieList}
+            underlayColor="#334d5d"
+          >
             <Text style={this.showShowScheduleButtonStyle()}>Näytä elokuvat</Text>
           </TouchableHighlight>
           {this.state.showAreaPicker ?

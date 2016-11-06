@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   link: {
-    color: '#ffc40c',
+    color: '#efc84a',
     fontSize: 18,
     fontWeight: 'bold',
     paddingBottom: 10,

@@ -9,18 +9,18 @@ import MovieList from '../components/MovieList';
 const getSceneStyle = () => {
   const style = {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#334d5d',
   };
   return style;
 };
 
 const styles = StyleSheet.create({
   navigationBarStyle: {
-    backgroundColor: '#000',
+    backgroundColor: '#334d5d',
     borderBottomWidth: 0,
   },
   titleStyle: {
-    backgroundColor: '#000',
+    backgroundColor: '#334d5d',
   },
 });
 

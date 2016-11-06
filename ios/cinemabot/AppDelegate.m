@@ -24,7 +24,10 @@
                                                       moduleName:@"cinemabot"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-  rootView.backgroundColor = [UIColor blackColor];
+  // rootView.backgroundColor = [UIColor blackColor];
+  rootView.backgroundColor = [UIColor colorWithRed:(51/255.0) green:(77/255.0) blue:(93/255.0) alpha:1.0];
+
+// [UIColor colorWithRed:(160/255.0) green:(97/255.0) blue:(5/255.0) alpha:1.0]
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

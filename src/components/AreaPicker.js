@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   pickerItem: {
-    color: '#000',
+    color: '#334d5d',
   },
 });
 
