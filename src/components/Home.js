@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     height: 40,
-    marginTop: 30,
+    marginTop: 25,
   },
   container: {
     backgroundColor: '#000',

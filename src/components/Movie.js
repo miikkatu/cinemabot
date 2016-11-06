@@ -14,9 +14,9 @@ require('moment/locale/fi');
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 25,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 30,
   },
   contentDescriptor: {
     height: 50,
@@ -108,7 +108,6 @@ export default class Movie extends Component {
   };
 
   render() {
-    console.log(this.props.movie.ContentDescriptors.ContentDescriptor);
     return (
       <ScrollView style={styles.container}>
         <View style={styles.titleView}>
